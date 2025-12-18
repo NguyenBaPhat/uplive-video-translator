@@ -18,19 +18,27 @@ class GeminiClient:
     def target_language(self) -> str:
         return self._target_language
 
-    def translate_lines(self, lines: List[str]) -> List[str]:
+    def translate_lines(self, lines: List[str], target_language: str | None = None) -> List[str]:
         """
-        Translate a list of subtitle lines into the configured target language.
+        Translate a list of subtitle lines into the target language.
         Uses a detailed prompt engineered for high-quality, context-aware translation.
+        
+        Args:
+            lines: List of subtitle lines to translate
+            target_language: Target language code (e.g., 'vi', 'fr', 'es'). 
+                           If None, uses the configured default from config.
         """
         if not lines:
             return []
 
+        # Use provided target_language or fall back to config default.
+        lang = target_language or self._target_language
+
         # Prompt engineered for high-quality subtitle translation with clear constraints.
-        system_prompt = f"""You are a professional subtitle translator. Translate the following English subtitle lines into {self._target_language}.
+        system_prompt = f"""You are a professional subtitle translator. Translate the following English subtitle lines into {lang}.
 
 **Translation Guidelines:**
-- Translate for natural meaning, not word-for-word. Use idiomatic {self._target_language} expressions.
+- Translate for natural meaning, not word-for-word. Use idiomatic {lang} expressions.
 - Maintain the original tone (formal/casual/technical) and emotional emphasis.
 - Keep translations concise for subtitle reading speed.
 - Preserve technical terms, brand names, and proper nouns as-is.

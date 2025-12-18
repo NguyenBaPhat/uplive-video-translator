@@ -40,14 +40,6 @@ env/
 *~
 .DS_Store
 
-# Project specific
-data/output/*
-!data/output/.gitkeep
-*.mp4
-*.mp3
-*.wav
-*.srt
-*.log
 
 # Jupyter Notebook
 .ipynb_checkpoints

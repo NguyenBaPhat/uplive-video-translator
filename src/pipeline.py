@@ -54,7 +54,7 @@ class VideoTranslationPipeline:
         # 3. Translate each subtitle line with Gemini.
         print("[4/7] Translating subtitle lines with Gemini...")
         lines = [seg.text for seg in segments]
-        translated_lines = self._gemini.translate_lines(lines)
+        translated_lines = self._gemini.translate_lines(lines, target_language=normalized_lang)
         for seg, translated in zip(segments, translated_lines):
             seg.translated_text = translated
 
